@@ -1,6 +1,6 @@
 # Project : Te-THUD !!!!
 
-( the name came from Tetris "TE-" + sound of object got crushed “THUD!!”)
+( the name came from Tetris(original game that my videogame based on) "TE-" + sound of object got crushed “THUD!!”)
 ```
 Description : “Doged the block above you or you LOST”
 ```
@@ -60,6 +60,7 @@ I primarily test my code by running it for 5–10 minutes to verify that it perf
 6. Clear row when the row are full
 7. check timer
 8. check collision and game error screen 
+
 Based on my testing so far, I have not encountered any bugs, and the program functions as intended with 100% accuracy.
 
 ## Rate your project sophistication level 
