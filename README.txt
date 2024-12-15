@@ -9,8 +9,8 @@ Additionally, Christian can be found on Twitter @tokyoedtech.
 Thank you for your attention, and I hope you enjoy the game!
 
 About my video game :
-     This is just Te-Thud version 0.9 the game not finished yet but I just want to make something like online save state for safty           
-	Mechanic of game (ver 0.9)
+     This is just Te-Thud version 1 the game not finished yet but I just want to make something like online save state for safty           
+	Mechanic of game (ver 1)
 [/] Game :Build Screen 
 [/] Game : Grid-Based canva, area for Obstacles and player
 [/] Player : player movement (left-right)
@@ -18,5 +18,5 @@ About my video game :
 [/] Game : Check collision and trigger game over
 [/] Player : Jump movement (warp)
 [/] Game : Random and Build Obstacles
-[ ] Game : Clear Obstacle when it filled the line 
+[/] Game : Clear Obstacle when it filled the line 
 [/]  Game : Timer

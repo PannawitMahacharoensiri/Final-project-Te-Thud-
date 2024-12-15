@@ -5,7 +5,7 @@ import time
 class Player:
     def __init__(self,color = "Blue"):
         self.grid_x = 5
-        self.grid_y = 23
+        self.grid_y = 20
         self.color = color
         self.jump_fail = False
 
@@ -48,6 +48,9 @@ class Obstacle:
     short_line = [[1],
                   [1],
                   [1]]
+    tiny_line = [[1],
+                 [1]]
+
 
     box = [[1, 1],
            [1, 1]]
@@ -58,12 +61,16 @@ class Obstacle:
                      [1, 0],
                      [1, 1]]
 
+
     left_l = [[1, 0, 0],
               [1, 1, 1]]
     right_l = [[0, 0, 1],
                [1, 1, 1]]
     t = [[0, 1, 0],
          [1, 1, 1]]
+    rectangle = [[1, 1, 1],
+                 [1, 1, 1]]
+
 
     horizontal_line = [[1, 1, 1, 1]]
 
@@ -119,6 +126,7 @@ class Game:
         self.can_build = True
         self.screen = turtle.Screen()
         self.screen.setup(self.width, self.height)
+        self.screen.bgcolor("#69992a")
         self.screen.title("Te-ThuD!!!!!!")
         self.player = Player()
         self.grid[self.player.grid_y][self.player.grid_x] = 2
@@ -138,14 +146,13 @@ class Game:
             for each_width in range(len(self.grid[0])) :
                 screen_x = -110 + (each_width * 20)
                 screen_y = 230 - (each_line * 20)
-                """Use stamp"""
                 self.gamedev.goto(screen_x, screen_y)
                 if self.grid[each_line][each_width] == 1 :
-                    self.gamedev.color("red")
+                    self.gamedev.color("#306230")
                 elif self.grid[each_line][each_width]  == 2 :
-                    self.gamedev.color("blue")
+                    self.gamedev.color("#0f380f")
                 else :
-                    self.gamedev.color("black")
+                    self.gamedev.color("#90be33")
                 self.gamedev.stamp()
         self.screen.update()
 
@@ -166,13 +173,11 @@ class Game:
                 if Object.shape[y][x] == 1:
                     new_x = Object.grid_x + x
                     new_y = Object.grid_y + y + 1
-
-                    if new_y >= 24 or self.grid[new_y][new_x] != 0:
+                    if new_y >= 24 or self.grid[new_y][new_x] == 1:
                         can_fall = False
                         break
             if not can_fall:
                 break
-
         for y in range(Object.height):
             for x in range(Object.width):
                 if Object.shape[y][x] == 1:
@@ -200,7 +205,6 @@ class Game:
                     for x in range(obstacle.width):
                         if obstacle.shape[y][x] == 1:
                             self.grid[obstacle.grid_y + y][obstacle.grid_x + x] = 1
-
                 obstacle.state_fall = 1
             else:
                 obstacle.state_fall = 0
@@ -223,76 +227,119 @@ class Game:
 
     def random_block(self):
         shapes = {
-            "Base1" : [Obstacle.vertical_line, Obstacle.short_line],
-            "Base2" : [Obstacle.box, Obstacle.left_l, Obstacle.right_l],
-            "Base3" : [Obstacle.left_l, Obstacle.right_l, Obstacle.t],
+            "Base1" : [Obstacle.vertical_line, Obstacle.short_line,Obstacle.tiny_line,Obstacle.tiny_line],
+            "Base2" : [Obstacle.box, Obstacle.box, Obstacle.stand_left_l, Obstacle.stand_right_l],
+            "Base3" : [Obstacle.left_l, Obstacle.right_l, Obstacle.t, Obstacle.t, Obstacle.rectangle],
             "Base4" : [Obstacle.horizontal_line]
         }
         width_to_base = {
             1: ["Base1"],
             2: ["Base2"],
-            3: ["Base2", "Base3"],
-            4: ["Base2", "Base3", "Base4"]
+            3: ["Base2", "Base3", "Base3", "Base3"],
+            4: ["Base2", "Base3", "Base3", "Base4", "Base4"]
         }
-
         start_row = 0
         start_col = random.randint(0, 11)
         place_row = len(self.grid) - 1
-
         for row in range(len(self.grid)):
             if self.grid[row][start_col] == 1:
                 place_row = row - 1
                 break
-        max_width1 = 0
-        max_width2 = 0
-        for col in range(start_col, 11):
-             if self.grid[place_row][col] != 1:
-                 max_width1 += 1
-             else:
-                 break
-        if place_row == 23 :
-            max_width2 = 11-start_col
+        if place_row < 15 :
+            return
         else :
-            currently_row = self.grid[place_row]
-            for i in range(start_col,11):
-                if currently_row[i] == 1 :
-                    max_width2 += 1
+            max_width1 = 0
+            max_width2 = 0
+            for col in range(start_col, 11):
+                 if self.grid[place_row][col] != 1:
+                     max_width1 += 1
+                 else:
+                     break
+            for col in range(0,start_col):
+                if self.grid[place_row][col] != 1:
+                    start_col -= 1
+                    max_width1 += 1
                 else :
                     break
-        choose_width = min(max_width1, max_width2)
-        if choose_width == 0 :
-            choose_width = 1
-        elif choose_width > 4 :
-            choose_width = 4
+            if place_row == 23 :
+                max_width2 = 11-start_col
+            else :
+                currently_row = self.grid[place_row]
+                for i in range(start_col,11):
+                    if currently_row[i] == 1 :
+                        max_width2 += 1
+                    else :
+                        break
+            choose_width = min(max_width1, max_width2)
+            if choose_width == 0 :
+                choose_width = 1
+            elif choose_width > 4 :
+                choose_width = 4
 
-        valid_bases = width_to_base[choose_width]
-        chosen_base = random.choice(valid_bases)
-        chosen_shape = random.choice(shapes[chosen_base])
-        new_obstacle = Obstacle(chosen_shape, start_col,start_row)
-        self.add_shape(new_obstacle)
+            valid_bases = width_to_base[choose_width]
+            chosen_base = random.choice(valid_bases)
+            chosen_shape = random.choice(shapes[chosen_base])
+            new_obstacle = Obstacle(chosen_shape, start_col,start_row)
+            self.add_shape(new_obstacle)
 
     @staticmethod
     def draw_score(pen, score, location, font_size, color):
-        font = ("Arial", font_size, "normal")
+        font = ("Courier New", font_size, "normal")
         pen.clear()
         pen.color(color)
         pen.hideturtle()
         pen.goto(location[0],location[1])
         pen.write("Time: {}".format(score), move=False, align="left", font=font)
 
+    @staticmethod
+    def draw_game_over(pen, score, location):
+        font = ("Courier New", 50, "normal")
+        font2 = ("Courier New", 30, "normal")
+        pen.clear()
+        pen.color("#948414")
+        pen.hideturtle()
+        pen.goto(location[0]+70 ,location[1]+70)
+        pen.write("GAME", move=False, align="center", font=font)
+        pen.goto(location[0] + 70, location[1] +20)
+        pen.write("OVER", move=False, align="center", font=font)
+        pen.color("#776b1b")
+        pen.goto(location[0], location[1]-60)
+        pen.write("Time: {}".format(score), move=False, align="left", font=font2)
+
     def end_game(self):
         self.game_over = True
         time.sleep(0.3)
         print("GAME OVER")
+
+    def delete_obstacle(self):
+        y = len(self.grid) - 1
+        obstacles_to_keep = []
+        while y >= 0:
+            is_full = all(self.grid[y][x] == 1 for x in range(len(self.grid[0])))
+            if is_full:
+                for obstacle in self.obstacles:
+                    if obstacle.grid_y <= y < obstacle.grid_y + obstacle.height:
+                        pass
+                    else:
+                        obstacles_to_keep.append(obstacle)
+                del self.grid[y]
+                player_x, player_y = self.player.grid_x, self.player.grid_y
+                if self.grid[player_y][player_x] == 2:
+                    self.grid[player_y][player_x] = 0
+                self.grid.insert(0, [0] * len(self.grid[0]))
+            else:
+                y -= 1
+        self.obstacles = obstacles_to_keep
 
     def run(self):
         pen = turtle.Turtle()
         pen.penup()
         frame = 0
         while not self.game_over:
-            self.draw_score(pen,frame,[-100, 250],24, "blue")
+            self.draw_score(pen,frame,[-120, 250],24, "#0f380f")
             self.check_can_build()
             if self.can_build :
+                self.delete_obstacle()
                 self.random_block()
             self.player_fall()
             self.check_collision()
@@ -303,8 +350,8 @@ class Game:
             self.screen.update()
             time.sleep(0.2)
         self.screen.clear()
-        self.draw_score(pen, frame-1, [-90, 0], 40,"red")
-        self.screen.bgcolor("pink")
+        self.draw_game_over(pen,frame-1,[-120, 0])
+        self.screen.bgcolor("#92be33")
         self.screen.mainloop()
 
 
