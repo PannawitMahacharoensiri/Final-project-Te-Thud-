@@ -1,15 +1,15 @@
 # Project : Te-THUD !!!!
-( the name came from Tetris + sound of object got crushed “THUD!!”)
-“Doged the block above you or you LOST”
-This project was developed as part of 01219114/01219115 Programming 1
-Section 450, Academic Year 2567 at "Kasetsart University"
+
+( the name came from Tetris "TE-" + sound of object got crushed “THUD!!”)
+```
+Description : “Doged the block above you or you LOST”
+```
+This project was developed as part of 01219114/01219115 Programming 1, Section 450, Academic Year 2567 at "Kasetsart University"
 
 
 ## Introduction
-Good Morning Everyone, I am excited to present my video game project titled "Te-Thud!!!". Before I go further, I would like to acknowledge that I did not develop the original code for the game entirely from scratch. Rather, I modified and adapted existing code from a classic "Tetris" game. I would like to extend my gratitude to Christian Thompson for his contributions, which served as the foundation for this project.
-
-You can find his original Python code at the following link:
-    https://github.com/wynand1004/Projects/blob/master/Tetris%2Ftetris.py
+   Good Morning Everyone, I am excited to present my video game project titled "Te-Thud!!!". Before I go further, I would like to acknowledge that I did not develop the original code for the game entirely from scratch. Rather, I modified and adapted existing code from a classic "Tetris" game. I would like to extend my gratitude to Christian Thompson for his contributions, which served as the foundation for this project.
+   You can find his original Python code at the following link:  https://github.com/wynand1004/Projects/blob/master/Tetris%2Ftetris.py
 Additionally, Christian can be found on Twitter @tokyoedtech.
 Thank you for your attention, and I hope you enjoy the game!
 
@@ -35,8 +35,10 @@ Step by step:
 [TeTHUD demo video](https://youtu.be/YganM5vVIUM)
 
 
+
 ## Project design and implementation
--  UML class diagram : https://lucid.app/lucidchart/0eb1a408-46f5-407c-a79f-0226788f450d/edit?viewport_loc=-251%2C-141%2C2560%2C1184%2C0_0&invitationId=inv_53a46a61-07b2-4ca6-ae34-975f9579f89e
+-  UML class diagram :
+    [Lucide app](https://lucid.app/lucidchart/0eb1a408-46f5-407c-a79f-0226788f450d/edit?viewport_loc=-251%2C-141%2C2560%2C1184%2C0_0&invitationId=inv_53a46a61-07b2-4ca6-ae34-975f9579f89e)
 - Player Class: Responsible for constructing the player object and managing player movement.
 - Obstacles Class: Serves as a blueprint for creating obstacle objects whenever they are instantiated.
 - Game Class: The main class that handles the core game logic, including setting up the screen, processing user input, and coordinating interactions between objects from other classes.
@@ -57,3 +59,7 @@ I primarily test my code by running it for 5–10 minutes to verify that it perf
 7. check timer
 8. check collision and game error screen 
 Based on my testing so far, I have not encountered any bugs, and the program functions as intended with 100% accuracy.
+
+## Rate your project sophistication level 
+### 90 point
+: my program doesn't emphasize the all angle  simulation but more about how each object got handle and got update
