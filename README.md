@@ -15,7 +15,7 @@ Thank you for your attention, and I hope you enjoy the game!
 
 
 ## Project description
-- My project  is a Tetris-inspired video game  where the player controls a square block that must avoid falling obstacles. Unlike traditional Tetris, the player does not manipulate the obstacles but instead navigates the game environment to dodge them. The objective is to prevent obstacles from landing on the player's block, as doing so results in losing the game.
+- My project  is a Tetris-inspired video game  where the player controls a square block that must avoid falling obstacles. Unlike traditional Tetris, the player does not manipulate the obstacles but instead navigates the square block to dodge them. The objective is to prevent obstacles from landing on the player's block, as doing so results in losing the game.
 - The game features a grid-based design, meaning updates occur block by block rather than with smooth framerate transitions. Despite this, the core mechanics are fully implemented, including player movement (left, right, and jumping), automatic clearing of rows when they are completely filled, and the random generation of obstacles. These mechanics ensure an engaging and enjoyable experience for players.
 ``` | Control |
 Move left : Key left
@@ -45,6 +45,8 @@ Step by step:
 
 ### Interaction Between Objects:
 The majority of the program’s functionality is managed within the Game class. When the Game class needs to modify the state or attributes of an object from another class (e.g., Player or Obstacles), it invokes the appropriate methods of that class and passes the required values. This ensures that each class operates cohesively while maintaining clear separation of responsibilities.
+
+### How I extend from baseline codes:
 - Firstly, I utilize code introduced in class, such as the ball_bouncing_sim program, as a case study and example to understand the capabilities of the turtle module.
 - To create animations that depict movement, I apply the logic of updating the visual display frame by frame. This involves continuously modifying the attributes of objects, which, in turn, update the screen to create the appearance of motion with each frame.
 
